@@ -1,0 +1,41 @@
+package com.company;
+
+import java.util.*;
+
+public class Main {
+
+    public static  Node insert(Node head,int data) {
+        if(head == null){
+            head = new Node(data);
+            return head;
+        } else{
+            Node auxHead = head;
+            while(auxHead.next != null){
+                auxHead = auxHead.next;
+            }
+            auxHead.next = new Node(data);
+            return head;
+        }
+    }
+
+    public static void display(Node head) {
+        Node start = head;
+        while(start != null) {
+            System.out.print(start.data + " ");
+            start = start.next;
+        }
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        Node head = null;
+        int N = sc.nextInt();
+
+        while(N-- > 0) {
+            int ele = sc.nextInt();
+            head = insert(head,ele);
+        }
+        display(head);
+        sc.close();
+    }
+}
