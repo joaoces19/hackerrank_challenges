@@ -10,35 +10,40 @@ public class Main {
         int n = in.nextInt();
         int m = in.nextInt();
         in.nextLine();
-        HashMap<Integer, Integer> counter;
-        Iterator<Integer> it;
-        int next, maxOcur = Integer.MIN_VALUE;
-        for (int i = 0; i < n; i++) {
-            int num = in.nextInt();
-            if(i>=m-1){
-                counter = new HashMap<>();
 
-                it = deque.iterator();
-                while(it.hasNext()){
-                    next = it.next();
-                    if(counter.get(next) == null){
-                        counter.put(next, 1);
-                    } else{
-                        counter.put(next, counter.get(next) + 1);
-                    }
+        int maxCounter = Integer.MIN_VALUE;
+        int i;
+        for(i=0; i<m; i++){
+            deque.addFirst(in.nextInt());
+        }
 
-                    if(counter.get(next) > maxOcur){
-                        maxOcur = counter.get(next);
-                    }
-                }
+        HashSet<Integer> set;
 
-                deque.removeLast();
-                deque.addFirst(num);
-            } else{
-                deque.add(num);
+        set = new HashSet<>();
+        set.addAll(deque);
+
+        if(set.size() > maxCounter){
+            maxCounter = set.size();
+        }
+
+        int removed;
+        int inserted;
+        for (i = m; i < n; i++) {
+            inserted = in.nextInt();
+            deque.addFirst(inserted);
+            set.add(inserted);
+
+            removed = deque.removeLast();
+
+            if(!deque.contains(removed)){
+                set.remove(removed);
+            }
+
+            if(set.size() > maxCounter){
+                maxCounter = set.size();
             }
         }
 
-        System.out.println(maxOcur);
+        System.out.println(maxCounter);
     }
 }
